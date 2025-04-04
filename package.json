@@ -12,6 +12,7 @@
     "@clerk/nextjs": "^6.13.0",
     "@prisma/client": "^6.5.0",
     "axios": "^1.8.4",
+    "date-fns": "^4.1.0",
     "framer-motion": "^12.6.3",
     "js-yaml": "^4.1.0",
     "lucide-react": "^0.487.0",
