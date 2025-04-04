@@ -1,6 +1,5 @@
 import { GetProjectByProjectId } from "../../../../../components/actions/project";
 import ProjectPage from "../../../../../components/projects/Projectage";
-import ProfileForm from "../../../../../components/shared/ProfileForm";
 
 const Page = async ({ params }: { params: { projectId: string } }) => {
 

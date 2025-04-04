@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 "use client";
 import React, { useState } from "react";
 import { getBatchProjectsByBatchId } from "../actions/batch";

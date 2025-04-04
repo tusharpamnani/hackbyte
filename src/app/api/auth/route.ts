@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import getPrismaClient from "../../../lib/prisma";

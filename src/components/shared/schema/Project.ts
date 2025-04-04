@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface Project {
     id: string;
     title: string;
@@ -8,7 +10,7 @@ export interface Project {
     batchId?: string;
     position?: number;
     learningObjectives?: any;
-    steps?: any | null;
+    steps?: any;
     GithubData?: any | null;
     createdAt?: Date;
     updatedAt?: Date;
