@@ -313,7 +313,7 @@ const ExpandingAccordion = ({ items }: { items: Project[] }) => {
                                               </h5>
                                               <div className="flex flex-wrap gap-2">
                                                 {step.resources.map(
-                                                  (resource, resourceIdx) => (
+                                                  (resource: any, resourceIdx: any) => (
                                                     <a
                                                       key={resourceIdx}
                                                       href={resource.url}
