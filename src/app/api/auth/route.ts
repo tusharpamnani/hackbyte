@@ -1,19 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
-import getPrismaClient from "../../../lib/prisma";
 import { GithubTokenExtract } from "../../../utils/github/GithubBackchodi";
 import { getOwnerId } from "../../../utils/github/GithubProjectBackchodi";
-import { use } from "react";
-
-const prisma = getPrismaClient();
+import { prisma } from "../../../../lib/prisma";
+import { auth } from "@clerk/nextjs/server"; 
 
 async function fetchClerkUser(userId: string) {
   const response = await fetch(`https://api.clerk.dev/v1/users/${userId}`, {
     headers: {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLERK_SECRET_KEY}`,
+      Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
     },
   });
 
@@ -27,14 +21,19 @@ async function fetchClerkUser(userId: string) {
 export async function GET(request: Request) {
   const { userId } = await auth();
 
+  console.log("🔑 Authenticated userId from Clerk:", userId);
+
   if (!userId) {
+    console.log("❌ No userId found — Unauthorized access");
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
     const clerkUser = await fetchClerkUser(userId);
+    console.log("🧾 Clerk user fetched:", clerkUser);
 
     if (!clerkUser || clerkUser.id !== userId) {
+      console.log("❌ Clerk user mismatch or not found");
       return NextResponse.json(
         { error: "User not found in Clerk" },
         { status: 404 }
@@ -42,43 +41,51 @@ export async function GET(request: Request) {
     }
 
     const githubToken = await GithubTokenExtract(userId);
+    console.log("🔐 GitHub token extracted:", githubToken);
 
     const githubId = clerkUser.username;
+    console.log("👤 GitHub ID / username from Clerk:", githubId);
 
     const githubOwnerid = await getOwnerId("user", githubId, githubToken);
+    console.log("🏷️ GitHub owner ID fetched:", githubOwnerid);
 
     const dbUser = await prisma.user.upsert({
       where: { clerkId: userId },
       update: {
         email: clerkUser.email_addresses?.[0]?.email_address || "",
-        githubToken : githubToken,
-        githubOwnerid : githubOwnerid,
+        githubToken,
+        githubOwnerid,
         userName: clerkUser.username,
-        githubId : githubId,
+        githubId,
       },
       create: {
-        clerkId: userId,
+        clerkId: clerkUser.id,
         name: clerkUser.first_name || "",
         lastName: clerkUser.last_name || "",
-        avatar : clerkUser.avatar,
+        avatar: clerkUser.avatar,
         email: clerkUser.email_addresses?.[0]?.email_address || "",
         userName: clerkUser.username,
-        githubToken : githubToken,
-        githubOwnerid : githubOwnerid,
-        githubId : githubId,
+        githubToken,
+        githubOwnerid,
+        githubId,
       },
       select: { id: true },
     });
 
-    if (!dbUser)
+    console.log("✅ DB user upserted (created or updated):", dbUser);
+
+    if (!dbUser) {
+      console.log("❌ User not found or failed to upsert in DB");
       return NextResponse.json(
         { error: "User not found in DB" },
         { status: 404 }
       );
+    }
 
+    console.log("🚀 Redirecting user to /dashboard");
     return NextResponse.redirect(new URL("/dashboard", request.url));
   } catch (error) {
-    console.error("Error syncing user:", error);
+    console.error("🔥 Error syncing user:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

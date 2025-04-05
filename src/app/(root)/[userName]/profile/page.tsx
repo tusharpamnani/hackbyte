@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-unused-vars */
+
 import { GetUserByUserName } from "../../../../components/actions/user";
 import ProfileForm from "../../../../components/shared/ProfileForm";
 

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import { GiRamProfile } from "react-icons/gi";
+import { GiRamProfile } from 'react-icons/gi';
 // import { SignOutButton } from '../auth/buttons/SignOut';
 
 interface TopbarProps {

@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 "use client";
 import React, { useState } from "react";
 import { getBatchProjectsByBatchId } from "../actions/batch";
@@ -23,7 +21,7 @@ const BatchCard = ({ batch }: { batch: Batch }) => {
   };
 
   const AvgLevel = (projects: Project[]) => {
-    let levelsCount = {
+    const levelsCount = {
       Beginner: 0,
       Intermediate: 0,
       Advanced: 0,

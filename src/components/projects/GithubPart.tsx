@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-unused-vars */
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -39,6 +41,7 @@ const GithubPart = ({ projectId }) => {
     ? JSON.parse(project.GithubData)
     : evaluationResult;
 
+    console.log(githubData)
   const PushToDB = async (githubData) => {
     try {
       const response = await axios.patch("/api/query/project", {
@@ -144,9 +147,9 @@ const GithubPart = ({ projectId }) => {
         </div>
       )}
 
-      {githubData ? (
+      {/* {githubData ? ( */}
         <div className="space-y-4 bg-gray-100 p-4 rounded-lg">
-          {githubData.error ? (
+          {githubData && githubData.error ? (
             <p className="text-red-500">{githubData.error}</p>
           ) : (
             <>
@@ -180,7 +183,7 @@ const GithubPart = ({ projectId }) => {
             </>
           )}
         </div>
-      ) : (
+      {/* ) : (
         <>
           <input
             type="text"
@@ -208,7 +211,7 @@ const GithubPart = ({ projectId }) => {
             <Play size={16} /> {loading ? "Generating..." : "Generate"}
           </button>
         </>
-      )}
+      {/* // )} */}
     </div>
   );
 };

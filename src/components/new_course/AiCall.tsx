@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable  @typescript-eslint/no-unused-vars */
 
 "use client";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { validateJsonStructure } from "../../utils/JsonChecker";
-import { currentUser } from "@clerk/nextjs/dist/types/server";
 
 interface Project {
   batch: number;

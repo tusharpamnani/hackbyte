@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-unused-vars */
+
 // Types for our data structures
 interface CommitResponse {
   commit: {
@@ -64,7 +66,7 @@ class GitHubService {
 
   constructor(token: string) {
     this.headers = {
-      Authorization: `Bearer ${token}`,
+      Authorization: `token ${token}`,
       Accept: "application/vnd.github.v3+json",
     };
   }
@@ -194,46 +196,52 @@ class GitHubService {
   /**
    * Get a formatted summary of commit changes
    */
-  async getCommitChanges(
-    owner: string,
-    repo: string,
-    commitSha: string
-  ): Promise<string> {
+  // Modify your getCommitChanges function to match Python naming exactly
+  async getCommitChanges(owner, repo, commitSha) {
     try {
       const fileChanges = await this.fetchCommitDiff(owner, repo, commitSha);
       return this.formatDiffSummary(fileChanges);
     } catch (error) {
-      return `Error fetching commit changes: ${
-        error instanceof Error ? error.message : String(error)
-      }`;
+      return `Error fetching commit changes: ${String(error)}`;
     }
   }
 
-  /**
-   * Fetch commits from a repository
-   */
-  async fetchCommits(owner: string, repo: string): Promise<CommitData[]> {
+  // Modify your fetchCommits function to match Python output format exactly
+  async fetchCommits(owner, repo) {
     const url = `https://api.github.com/repos/${owner}/${repo}/commits`;
-
+  
     try {
+      console.log(`Fetching commits for ${owner}/${repo}`);
       const response = await fetch(url, { headers: this.headers });
-
+      
+      // Log rate limit info
+      console.log("Rate limit remaining:", response.headers.get("x-ratelimit-remaining"));
+      console.log("Rate limit reset:", response.headers.get("x-ratelimit-reset"));
+      
       if (!response.ok) {
-        throw new Error(`Failed to fetch commits: ${response.status}`);
+        const errorBody = await response.text();
+        console.error("GitHub API Error:", {
+          status: response.status,
+          statusText: response.statusText,
+          url,
+          body: errorBody
+        });
+        throw new Error(`Failed to fetch commits: ${response.status} - ${response.statusText}`);
       }
-
-      const commits = (await response.json()) as CommitResponse[];
-      const store: CommitData[] = [];
-
+  
+      const commits = await response.json();
+      console.log(`Found ${commits.length} commits`);
+      
+      const store = [];
       for (const commit of commits) {
-        const data: CommitData = {
-          date: commit.commit.author.date,
-          message: commit.commit.message,
-          data: await this.getCommitChanges(owner, repo, commit.sha),
+        const data = {
+          Date: commit.commit.author.date,
+          Message: commit.commit.message,
+          Data: await this.getCommitChanges(owner, repo, commit.sha),
         };
         store.push(data);
       }
-
+  
       return store;
     } catch (error) {
       console.error("Error fetching commits:", error);

@@ -1,5 +1,8 @@
-"use client";/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable  @typescript-eslint/no-unused-vars*/
+
+
+"use client";
 
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -129,6 +132,9 @@ const ExpandingAccordion = ({ items }: { items: Project[] }) => {
         </div>
       );
     }
+
+    // Return the value as a string if it's a primitive
+    return String(value);
   };
 
   return (
@@ -285,7 +291,7 @@ const ExpandingAccordion = ({ items }: { items: Project[] }) => {
                                             <AlertCircle className="w-5 h-5 text-amber-600 mr-2" />
                                           )}
                                           <h4 className="font-medium text-black">
-                                            {step.stepTitle}
+                                            {step.stepTitle.stepTitle} 
                                           </h4>
                                         </div>
                                         <span
@@ -314,7 +320,7 @@ const ExpandingAccordion = ({ items }: { items: Project[] }) => {
                                               </h5>
                                               <div className="flex flex-wrap gap-2">
                                                 {step.resources.map(
-                                                  (resource: any, resourceIdx: any) => (
+                                                  (resource, resourceIdx) => (
                                                     <a
                                                       key={resourceIdx}
                                                       href={resource.url}
@@ -353,7 +359,7 @@ const ExpandingAccordion = ({ items }: { items: Project[] }) => {
                               <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
                                 GitHub Data
                               </h3>
-                              <div className="p-4 bg-gray-800 rounded-lg border border-gray-700  font-mono text-sm overflow-x-auto text-black">
+                              <div className="p-4 bg-gray-800 rounded-lg border border-gray-700 font-mono text-sm overflow-x-auto text-black">
                                 {renderValue(item.GithubData)}
                               </div>
                             </div>
