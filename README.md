@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Git-Smart  
+**_Smart Learning. Seamless Automation._**
 
-## Getting Started
+[🔗 Live Demo](https://gitsmart.vercel.app/) | [📂 GitHub Repo](https://github.com/tusharpamnani/hackbyte)
 
-First, run the development server:
+---
+
+## 🧠 What is Git-Smart?
+
+**Git-Smart** helps beginner developers kickstart their development journey using AI-powered personalized roadmaps and GitHub-based project automation. We use **Gemini API** to guide what to learn, and **GitHub Actions** to verify how well it's learned — turning GitHub into a personal project mentor.
+
+---
+
+## 🎯 Features
+
+- ✅ **AI-Powered Roadmap Generation** via Gemini  
+- 🧩 **Batch-Wise Projects** – 4 practical projects per batch  
+- 📖 **Clear Project Guides** hosted in GitHub repos  
+- 🤖 **GitHub Actions** for automated code testing  
+- 🛡️ **CodeQL** integration for secure, quality submissions  
+- ⚡ **Instant Feedback** loop on every submission  
+- 🌐 **Live Deployment** powered by Vercel  
+
+---
+
+## 🛠️ Tech Stack
+
+| Category        | Tech Used                                  |
+|----------------|---------------------------------------------|
+| Frontend       | Next.js, React, Tailwind CSS, Framer Motion |
+| Backend        | Prisma, MongoDB, Clerk                      |
+| AI Integration | Gemini API, Langchain                       |
+| Automation     | GitHub Actions, CodeQL                      |
+| Auth           | Clerk + GitHub OAuth                        |
+| Deployment     | Vercel                                      |
+
+---
+
+## ⚙️ Getting Started
+
+Follow these steps to set up and run Git-Smart locally:
+
+### 1. **Clone the Repository**
+
+```bash
+git clone https://github.com/tusharpamnani/hackbyte.git
+cd hackbyte
+```
+
+### 2. **Install Dependencies**
+
+Make sure you have `node` and `npm` installed, then:
+
+```bash
+npm install
+```
+
+### 3. **Setup Environment Variables**
+
+- Copy the `.env.example` file to `.env`:
+
+```bash
+cp .env.example .env
+```
+
+- Fill in the required values in `.env`.  
+  This includes credentials for services like **Clerk**, **Google AI**, **MongoDB**, etc.
+
+### 4. **Generate Prisma Client**
+
+```bash
+npx prisma generate
+```
+
+> Ensure your database is set up and running before this step.
+
+### 5. **Run the Development Server**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Your app should now be running at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💡 Inspiration
 
-## Learn More
+Honestly? We were tired of **winging it**.
 
-To learn more about Next.js, take a look at the following resources:
+Our dev journeys started with a whole lot of **"fuck around and find out."** Endless tutorials, half-baked projects, no real structure — just vibes and stack overflow tabs. We wasted time, got stuck on dumb stuff, and had no clue what we were doing wrong.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Then came the DMs. Juniors asking, _“Bro how to start?”, “Is this project okay?”, “What to do after HTML?”_ — and we realized: damn, we needed something like **Git-Smart** back then.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+So we built it.
 
-## Deploy on Vercel
+Not another course. Not another YouTube list. Just a **practical, AI-powered guide** that says:  
+→ _Here’s what to learn_  
+→ _Here’s what to build_  
+→ _Here’s how you’re doing_  
+→ _Now go again._
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This isn’t a tutorial dump — it’s a **no-BS roadmap** with real projects and real feedback, made for devs who want to stop scrolling and start building.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🧪 Live in Action
+
+🖥 Try it live → [gitsmart.vercel.app](https://gitsmart.vercel.app)
+
+---

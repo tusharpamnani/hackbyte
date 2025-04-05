@@ -1,0 +1,47 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "pipeline": {
+        "build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                ".next/**",
+                "!.next/cache/**"
+            ],
+            "env": [
+                "AUTH_SECRET",
+                "AUTH_GITHUB_ID",
+                "AUTH_GITHUB_SECRET",
+                "NEXT_PUBLIC_GITHUB_TOKEN",
+                "GEMINI_API_KEY_GITHUB",
+                "GEMINI_API_KEY2",
+                "GROQ_API_KEY",
+                "DATABASE_URL",
+                "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+                "CLERK_SECRET_KEY",
+                "NEXT_PUBLIC_CLERK_SECRET_KEY",
+                "NEXT_PUBLIC_CLERK_SIGN_UP_URL"
+            ]
+        },
+        "lint": {
+            "outputs": []
+        },
+        "dev": {
+            "cache": false
+        },
+        "generate": {
+            "outputs": [
+                "prisma/client"
+            ],
+            "env": [
+                "DATABASE_URL"
+            ]
+        }
+    },
+    "globalDependencies": [
+        "tsconfig.json",
+        "package.json",
+        "prisma/schema.prisma"
+    ]
+}
