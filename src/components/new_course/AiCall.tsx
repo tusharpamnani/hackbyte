@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 "use client";
 
@@ -81,15 +80,15 @@ const AiCall = ({
     batches: Batch[]
   ) => {
     try {
-      // const response = await axios.post("/api/query/courseandprojects", {
-      //   title,
-      //   description,
-      //   batches,
-      // });
+      const response = await axios.post("/api/query/courseandprojects", {
+        title,
+        description,
+        batches,
+      });
 
-      // if (!(response.status === 201 || response.status === 200)) {
-      //   setError(response.data.message || response.data.error);
-      // }
+      if (!(response.status === 201 || response.status === 200)) {
+        setError(response.data.message || response.data.error);
+      }
 
       router.push(`/${userName}/c`)
     } catch (err) {
