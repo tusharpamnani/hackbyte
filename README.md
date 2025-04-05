@@ -88,13 +88,13 @@ Your app should now be running at `http://localhost:3000`.
 
 Honestly? We were tired of **winging it**.
 
-Our dev journeys started with a whole lot of **"fuck around and find out."** Endless tutorials, half-baked projects, no real structure — just vibes and stack overflow tabs. We wasted time, got stuck on dumb stuff, and had no clue what we were doing wrong.
+Our dev journeys started with a whole lot of **"f*ck around and find out."** Endless tutorials, half-baked projects, no real structure — just vibes and stack overflow tabs. We wasted time, got stuck on dumb stuff, and had no clue what we were doing wrong.
 
 Then came the DMs. Juniors asking, _“Bro how to start?”, “Is this project okay?”, “What to do after HTML?”_ — and we realized: damn, we needed something like **Git-Smart** back then.
 
 So we built it.
 
-Not another course. Not another YouTube list. Just a **practical, AI-powered guide** that says:  
+Not another Udemy. Not another YouTube list. Just a **practical, AI-powered guide** that says:  
 → _Here’s what to learn_  
 → _Here’s what to build_  
 → _Here’s how you’re doing_  
