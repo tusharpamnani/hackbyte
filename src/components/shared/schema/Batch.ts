@@ -4,7 +4,7 @@ export interface Batch {
     id: string;
     number: number;
     courseId: string;
-    projects?: Project[];
+    projects: Project[];
     githubProjectId?: string | null;
     status?: string;
     createdAt?: Date;

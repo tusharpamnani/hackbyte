@@ -41,7 +41,7 @@ const BatchCard = ({ batch }: { batch: Batch }) => {
     );
   };
 
-  const level = AvgLevel(batch.projects);
+  const level = AvgLevel(batch.projects || []);
 
   const levelColors: { [key: string]: string } = {
     Beginner: "bg-green-500",
@@ -63,7 +63,7 @@ const BatchCard = ({ batch }: { batch: Batch }) => {
         <h2 className="text-lg font-semibold text-black text-left w-full">
           Batch {batch.number}
         </h2>
-        {batch.projects.length > 0 &&
+        {batch.projects && batch.projects.length > 0 &&
           batch.projects
             .sort((a, b) => a.position - b.position)
             .map((project: any) => (
@@ -74,12 +74,13 @@ const BatchCard = ({ batch }: { batch: Batch }) => {
                 {project.title}
               </p>
             ))}
+
         <div
           className={`absolute top-2 right-2 h-4 w-4 rounded-full ${levelColors[level]}`}
         ></div>
       </div>
 
-      <ProjectList Batch={projectDetails} activeTab={activeTab} setActiveTab={setActiveTab}/>
+      <ProjectList Batch={projectDetails} activeTab={activeTab} setActiveTab={setActiveTab} />
     </div>
   );
 };

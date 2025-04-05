@@ -1,15 +1,22 @@
-// components/WindowPathLogger.tsx
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-const WindowPathLogger = () => {
+export default function WindowPathLogger() {
+  const pathname = usePathname();
+
   useEffect(() => {
-    const tokens = window.location.pathname.split("/");
-    console.log("Tokens:", tokens);
-  }, []);
+    console.log("Current pathname:", pathname);
 
-  return null; // This component just logs, doesn't render anything
-};
+    // Optional: Extract segments if needed
+    const segments = pathname.split("/").filter(Boolean);
+    const userName = segments[0];
+    const courseName = segments[2];
 
-export default WindowPathLogger;
+    console.log("userName:", userName);
+    console.log("courseName:", courseName);
+  }, [pathname]);
+
+  return null;
+}
