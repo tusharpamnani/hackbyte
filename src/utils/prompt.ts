@@ -2,10 +2,11 @@ export const PROMPT_COURSE  = `You are an AI Learning Path Generator that create
 user input : 
 topic : "" -- topic name to generate roadmap for
 duration : "" -- how many months 
-
+Level : "" -- how much hard level i want it to be
+description : "" -- how much i know about it already
 give output in JSON format.
 1. METADATA
-   - "topic" - The subject of the learning path.
+   - "topic" - The subject of the learning path. -- (**i want this to be url compatiable no special or capital symbols**)
    - "generalTip" - How to approach the learning process.
 
 2. PROJECTS -- keep the names as it is

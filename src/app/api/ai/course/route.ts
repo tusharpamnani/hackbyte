@@ -17,7 +17,9 @@ const prompt = ChatPromptTemplate.fromMessages([
     "human",
     `Generate a learning roadmap for:
     - Topic: {topic}
-    - Duration: {time_duration} months
+    - Duration: {time_duration} (in months)
+    - Prefered Level : {level}
+    - Proior Knowladge : {description}
     `,
   ],
 ]);
@@ -28,11 +30,13 @@ const chain = prompt.pipe(llm).pipe(outputParser);
 
 export async function POST(req: Request) {
   try {
-    const { topic, time_duration } = await req.json();
+    const { topic, time_duration, level, description } = await req.json();
 
     const res = await chain.invoke({
       topic,
       time_duration,
+      level,
+      description
     });
 
     const { jsonObject, text } = separateJSONandText(res);

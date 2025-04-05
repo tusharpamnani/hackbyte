@@ -308,18 +308,18 @@ const ExpandingAccordion = ({ items }: { items: Project[] }) => {
                                       </div>
 
                                       <div className="p-4 bg-white">
-                                        <p className="text-gray-700 mb-3">
-                                          {step.description}
+                                        <p className="text-gray-700 mb-3 text-xs">
+                                          {step.stepTitle.description}
                                         </p>
 
-                                        {step.resources &&
-                                          step.resources.length > 0 && (
+                                        {step.stepTitle.resources &&
+                                          step.stepTitle.resources.length > 0 && (
                                             <div className="mb-3">
                                               <h5 className="text-sm font-medium text-gray-600 mb-2">
                                                 Resources:
                                               </h5>
                                               <div className="flex flex-wrap gap-2">
-                                                {step.resources.map(
+                                                {step.stepTitle.resources.map(
                                                   (resource, resourceIdx) => (
                                                     <a
                                                       key={resourceIdx}
