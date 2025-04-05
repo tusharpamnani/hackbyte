@@ -10,6 +10,8 @@ import { DiGoogleAnalytics } from "react-icons/di";
 import { RefreshCw } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
+import { GetUserByUserId } from "../actions/user";
+import { UserId as fetchUserId } from "../../utils/userId";
 
 const Sidenav = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -18,14 +20,17 @@ const Sidenav = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  const menuItems = [
-    { icon: FaHome, label: "Dashboard", href: "/dashboard" },
-    { icon: MdMessage, label: "Courses", expandable: true },
-    { icon: AiOutlinePlusCircle, label: "New Course", href: "/new_course" },
-    { icon: DiGoogleAnalytics, label: "Analytics", href: "/analytics" },
-    { icon: IoMdSettings, label: "Settings", href: "/settings" },
-  ];
+  const [currentsUser, setCurrentsUser] = useState(null);
+  
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userId = await fetchUserId();
+      
+      const user = await GetUserByUserId(userId);
+      setCurrentsUser(user);
+    };
+    fetchUser();
+  }, []);
 
   const getCourses = async () => {
     try {
@@ -80,6 +85,16 @@ const Sidenav = () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, [isHovered]);
+
+  if (!currentsUser) return null;
+    
+  const menuItems = [
+    { icon: FaHome, label: "Dashboard", href: "/dashboard" },
+    { icon: MdMessage, label: "Courses", expandable: true },
+    { icon: AiOutlinePlusCircle, label: "New Course", href: `${currentsUser.userName}/new_course` },
+    { icon: DiGoogleAnalytics, label: "Analytics", href: "/analytics" },
+    { icon: IoMdSettings, label: "Settings", href: "/settings" },
+  ];
 
   return (
     <nav
@@ -176,7 +191,7 @@ const Sidenav = () => {
                         className="flex justify-between items-center px-4 py-2 text-sm bg-gray-800 rounded-md my-1"
                       >
                         <Link
-                          href={`/courses/${course.id}`}
+                          href={`/${currentsUser.userName}/c/${course.title}`}
                           className="flex items-center justify-between w-full"
                         >
                           <span>{course.title}</span>

@@ -2,6 +2,7 @@
 
 "use server"
 
+// import { currentUser } from "@clerk/nextjs/dist/types/server";
 import { prisma } from "../../../../lib/prisma"
 
 export async function GetUserByUserId(id : string) {
@@ -59,3 +60,8 @@ export async function GetUserIdByName(userName : string){
   const res = await GetUserByUserName(userName);
   return res.id;
 }
+
+// export async function GetCurrentUser(){
+//   const response = await currentUser();
+//   return response;
+// }

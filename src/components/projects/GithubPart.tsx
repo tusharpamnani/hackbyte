@@ -39,7 +39,7 @@ const GithubPart = ({ projectId }) => {
     ? JSON.parse(project.GithubData)
     : evaluationResult;
 
-    console.log(githubData)
+  console.log(githubData)
   const PushToDB = async (githubData) => {
     try {
       const response = await axios.patch("/api/query/project", {
@@ -145,12 +145,19 @@ const GithubPart = ({ projectId }) => {
         </div>
       )}
 
-      {githubData ? ( 
+      {githubData ? (
         <div className="space-y-4 bg-gray-100 p-4 rounded-lg">
           {githubData && githubData.error ? (
             <p className="text-red-500">{githubData.error}</p>
           ) : (
             <>
+              <input
+                type="text"
+                placeholder="Enter GitHub Repo Link"
+                value={repoLink}
+                onChange={(e) => setRepoLink(e.target.value)}
+                className="w-full text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
               <p className="text-gray-700">
                 🎯 <strong>Objectives Met:</strong>{" "}
                 {githubData["Objectives Met"]}
@@ -181,35 +188,27 @@ const GithubPart = ({ projectId }) => {
             </>
           )}
         </div>
-       ) : (
+      ) : (
         <>
-          <input
-            type="text"
-            placeholder="Enter GitHub Repo Link"
-            value={repoLink}
-            onChange={(e) => setRepoLink(e.target.value)}
-            className="w-full text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
+        
           <button
             onClick={handleEvaluate}
             disabled={loading}
-            className={`flex items-center gap-2 px-4 py-2 ${
-              loading ? "bg-gray-400" : "bg-green-600"
-            } text-white rounded-lg hover:bg-green-700 transition-all`}
+            className={`flex items-center gap-2 px-4 py-2 ${loading ? "bg-gray-400" : "bg-green-600"
+              } text-white rounded-lg hover:bg-green-700 transition-all`}
           >
             <Play size={16} /> {loading ? "Evaluating..." : "Evaluate"}
           </button>
-          <button
-            onClick={handleCodeQlGenerate}
-            disabled={loading}
-            className={`flex items-center gap-2 px-4 py-2 ${
-              loading ? "bg-gray-400" : "bg-green-600"
-            } text-white rounded-lg hover:bg-green-700 transition-all`}
-          >
-            <Play size={16} /> {loading ? "Generating..." : "Generate"}
-          </button>
         </>
       )}
+      <button
+        onClick={handleCodeQlGenerate}
+        disabled={loading}
+        className={`flex items-center gap-2 px-4 py-2 ${loading ? "bg-gray-400" : "bg-green-600"
+          } text-white rounded-lg hover:bg-green-700 transition-all`}
+      >
+        <Play size={16} /> {loading ? "Generating..." : "Generate"}
+      </button>
     </div>
   );
 };

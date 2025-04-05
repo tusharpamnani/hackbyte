@@ -12,20 +12,22 @@ import { GetUserByUserId } from "../../../components/actions/user";
 const Page = () => {
   const params = useParams<{ id: string }>();
   const { id } = params;
-  const userId = fetchUserId();
   const [User, setUser] = useState(null)
+  const [userId, setuserId] = useState("");
   const [errors, setErrors] = useState("");
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [expandedBatch, setExpandedBatch] = useState(null);
-
+  
   useEffect(() => {
     async function fetchUser() {
+      const userId = await fetchUserId();
+      setuserId(userId);
       const fetchedUser = await GetUserByUserId(userId);
       setUser(fetchedUser);
     }
     fetchUser();
-  }, [userId]);
+  }, []);
   
 
   useEffect(() => {

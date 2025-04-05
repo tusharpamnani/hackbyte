@@ -31,12 +31,14 @@ const ProjectDetail = ({ project: initialProject }) => {
     });
   });
   const [loading, setLoading] = useState(false);
-  const userId = fetchUserId();
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState("projects")
-  
+  const [userId, setuserId] = useState("");
+
   useEffect(() => {
     const fetchUser = async () => {
+      const userId = await fetchUserId();
+      setuserId(userId);
       if (userId !== null)
         console.log("userId", userId);
         try {
