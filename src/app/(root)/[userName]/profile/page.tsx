@@ -1,16 +1,39 @@
 /* eslint-disable  @typescript-eslint/no-unused-vars */
+"use client";
 
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import { GetUserByUserName } from "../../../../components/actions/user";
 import ProfileForm from "../../../../components/shared/ProfileForm";
 
-const Page = async ({ params }: { params: { userName: string } }) => {
+const ProfilePage = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const params = useParams();
+  const userName = params.userName as string;
 
-  let user = null;
-  const{userName} = await params
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (userName) {
+        try {
+          const userData = await GetUserByUserName(userName);
+          setUser(userData);
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
 
-  if (params.userName){
-    user = await GetUserByUserName(params.userName);
+    fetchUser();
+  }, [userName]);
+
+  if (loading) {
+    return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
   }
 
   if (!user) {
@@ -35,4 +58,4 @@ const Page = async ({ params }: { params: { userName: string } }) => {
   );
 };
 
-export default Page;
+export default ProfilePage;

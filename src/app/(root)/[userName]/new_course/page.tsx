@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 "use client";
 
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-import OutputDisplay from "../../../../components/new_course/OutputDisplay";
 import AiCall from "../../../../components/new_course/AiCall";
 
 const Page = () => {
@@ -20,7 +21,6 @@ const Page = () => {
         onMetadataChange={setMetadata}
         userName={userName}
       />
-      {/* {outputData && <OutputDisplay output={outputData} metadata={Metadata} />} */}
     </div>
   );
 };

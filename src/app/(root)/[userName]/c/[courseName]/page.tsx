@@ -2,24 +2,22 @@
 import { getBatchesByUserNameandCourseName } from "../../../../../components/actions/batch";
 import BatchCard from "../../../../../components/batch/card";
 import WindowPathLogger from "./WindowPathLogger";
-import type { Batch } from "../../../../../components/shared/schema/Project"; // or wherever your type is
+import type { Batch } from "../../../../../components/shared/schema/Project"; 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-// import { useEffect } from "react";
 
 export default function Page() {
-  // const { userName, courseName } = params;
-  const { userName, courseName } = useParams()
-  console.log(userName, courseName)
-  const [Batches, setBatches] = useState(null)
+  const { userName, courseName } = useParams();
+  console.log(userName, courseName);
+  const [Batches, setBatches] = useState(null);
+
   useEffect(() => {
     const fetchBatches = async () => {
       const batches = await getBatchesByUserNameandCourseName(userName as string, courseName as string);
-      setBatches(batches)
-    }
+      setBatches(batches);
+    };
     fetchBatches();
-  }, [userName])
-
+  }, [userName, courseName]); // Include `courseName` in the dependency array
 
   if (!Batches || !Batches.batch || Batches.batch.length === 0) {
     return (
