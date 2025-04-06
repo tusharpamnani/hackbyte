@@ -136,6 +136,13 @@ const GithubPart = ({ projectId }) => {
   return (
     <div className="space-y-4 bg-white p-6 rounded-lg shadow-lg">
       <h5 className="text-xl font-bold text-gray-800">GitHub Evaluation</h5>
+      <input
+        type="text"
+        placeholder="Enter GitHub Repo Link"
+        value={repoLink}
+        onChange={(e) => setRepoLink(e.target.value)}
+        className="w-full text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
 
       {codeQL && (
         <div className="space-y-4 bg-gray-100 p-4 rounded-lg">
@@ -151,13 +158,6 @@ const GithubPart = ({ projectId }) => {
             <p className="text-red-500">{githubData.error}</p>
           ) : (
             <>
-              <input
-                type="text"
-                placeholder="Enter GitHub Repo Link"
-                value={repoLink}
-                onChange={(e) => setRepoLink(e.target.value)}
-                className="w-full text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
               <p className="text-gray-700">
                 🎯 <strong>Objectives Met:</strong>{" "}
                 {githubData["Objectives Met"]}
@@ -190,7 +190,7 @@ const GithubPart = ({ projectId }) => {
         </div>
       ) : (
         <>
-        
+
           <button
             onClick={handleEvaluate}
             disabled={loading}

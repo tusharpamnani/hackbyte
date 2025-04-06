@@ -9,6 +9,8 @@ export async function GET(req: Request) {
     const owner = searchParams.get("owner");
     const repo = searchParams.get("repo");
 
+    console.log(id, owner, repo)
+
     if (!id || !owner || !repo) {
       return NextResponse.json(
         { error: "id, owner, and repo are required" },

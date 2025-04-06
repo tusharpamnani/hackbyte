@@ -2,6 +2,8 @@ import axios from "axios";
 import yaml from "js-yaml";
 import { GithubTokenExtract } from "./GithubBackchodi";
 
+
+
 class GithubRepoPush {
   private owner: string;
   private repoName: string;
@@ -32,13 +34,24 @@ class GithubRepoPush {
     };
   }
 
+  async getDefaultBranch(): Promise<string> {
+    const url = `https://api.github.com/repos/${this.owner}/${this.repoName}`;
+    try {
+      const response = await axios.get(url, { headers: this.headers });
+      return response.data.default_branch;
+    } catch (error) {
+      console.error("❌ Failed to fetch default branch:", error.response?.data || error.message);
+      throw new Error("Failed to fetch default branch");
+    }
+  }
+  
   async uploadFile(): Promise<boolean> {
     const url = `https://api.github.com/repos/${this.owner}/${this.repoName}/contents/.github/workflows/codeql.yml`;
     try {
       // Encode YAML content to Base64
       const yamlContent = typeof this.store === "string" ? this.store : yaml.dump(this.store, { lineWidth: -1 });
       const base64Content = Buffer.from(yamlContent, "utf-8").toString("base64");
-      
+      const defaultBranch = await this.getDefaultBranch();
       // Prepare the base payload
       const payload: {
         message: string;
@@ -48,7 +61,7 @@ class GithubRepoPush {
       } = {
         message: "Added CodeQL security scan workflow",
         content: base64Content,
-        branch: "main",
+        branch: defaultBranch ,
       };
       
       let sha = null;
@@ -99,8 +112,9 @@ class GithubRepoPush {
       Accept: "application/vnd.github.v3+json",
     };
     
-    const payload = { ref: "main" };
-    
+    const defaultBranch = await this.getDefaultBranch();
+    const payload = { ref: defaultBranch };
+        
     for (let attempt = 0; attempt < retries; attempt++) {
       try {
         // Add a delay before trying again (except for first attempt)
