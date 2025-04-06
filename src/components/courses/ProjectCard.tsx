@@ -30,19 +30,21 @@ const ProjectCard = ({ project, onStartProject }: ProjectCardProps) => {
   const [activeTab, setActiveTab] = useState<string>("projects");
   const [CourseOutcomes, setCourseOutcomes] = useState(false);
   const [steps, setSteps] = useState<Step[]>([]);
+  const [userId, setUserId] = useState('');
   const [showCommitModal, setShowCommitModal] = useState(false);
-  const userId = fetchUserId();
   const [User, setUser] = useState(null)
   console.log("steps", steps);
   const getProjectStatus = (steps: Step[]) => {
     if (!steps || steps.length === 0) return "Not Started";
     return steps.every((s) => s.status === "completed")
-      ? "Completed"
-      : "In Progress";
+    ? "Completed"
+    : "In Progress";
   };
-
+  
   useEffect(() => {
     async function fetchUser () {
+      const userId = await fetchUserId();
+      setUserId(userId);
       const featchedUser = await GetUserByUserId(userId);
       setUser(featchedUser);
     }
